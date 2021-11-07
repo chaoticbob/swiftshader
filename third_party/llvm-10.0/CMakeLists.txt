@@ -1149,6 +1149,8 @@ elseif(ANDROID)
     list(APPEND LIBBACKTRACE_INCLUDE_DIR ${LIBBACKTRACE_CONFIG_DIR}/android/include)
 elseif(FUCHSIA)
     list(APPEND LLVM_INCLUDE_DIR ${LLVM_CONFIG_DIR}/fuchsia/include)
+elseif(HAIKU)
+    list(APPEND LLVM_INCLUDE_DIR ${LLVM_CONFIG_DIR}/haiku/include)
 endif()
 
 list(APPEND LLVM_INCLUDE_DIR

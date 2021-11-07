@@ -48,6 +48,8 @@ extern char **environ;
 #endif
 #elif defined(__DragonFly__)
 #include <sys/mount.h>
+#elif defined(__HAIKU__)
+#include <kernel/image.h>
 #endif
 
 // Both stdio.h and cstdio are included via different paths and
@@ -283,6 +285,18 @@ std::string getMainExecutable(const char *argv0, void *MainAddr) {
   char link_path[MAXPATHLEN];
   if (realpath(DLInfo.dli_fname, link_path))
     return link_path;
+#elif defined(__HAIKU__)
+  char image_path[B_PATH_NAME_LENGTH];
+  image_info info;
+  int32 cookie = 0;
+
+  while (get_next_image_info(0, &cookie, &info) == B_OK) {
+    if (info.type == B_APP_IMAGE) {
+      strncpy(image_path, info.name, B_PATH_NAME_LENGTH - 1);
+        image_path[B_PATH_NAME_LENGTH - 1] = 0;
+        return image_path;
+    }
+  }
 #else
 #error GetMainExecutable is not implemented on this host yet.
 #endif

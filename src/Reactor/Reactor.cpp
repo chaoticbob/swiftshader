@@ -67,7 +67,11 @@ void rr::Config::Edit::apply(const std::vector<std::pair<ListEdit, T>> &edits, s
 	}
 }
 
+#if defined(__HAIKU__)
+Variable::UnmaterializedVariables *Variable::unmaterializedVariables = nullptr;
+#else
 thread_local Variable::UnmaterializedVariables *Variable::unmaterializedVariables = nullptr;
+#endif
 
 void Variable::UnmaterializedVariables::add(const Variable *v)
 {

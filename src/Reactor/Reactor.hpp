@@ -174,7 +174,11 @@ private:
 
 	// This has to be a raw pointer because glibc 2.17 doesn't support __cxa_thread_atexit_impl
 	// for destructing objects at exit. See crbug.com/1074222
+#if defined(__HAIKU__)
+	static UnmaterializedVariables *unmaterializedVariables;
+#else
 	static thread_local UnmaterializedVariables *unmaterializedVariables;
+#endif
 
 	Type *const type;
 	const int arraySize;
