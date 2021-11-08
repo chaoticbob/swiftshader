@@ -78,6 +78,10 @@
 #	include "WSI/Win32SurfaceKHR.hpp"
 #endif
 
+#ifdef VK_USE_PLATFORM_HAIKU_EXT
+#	include "WSI/HaikuSurface.hpp"
+#endif
+
 #include "marl/mutex.h"
 #include "marl/scheduler.h"
 #include "marl/thread.h"
@@ -333,6 +337,9 @@ static const ExtensionProperties instanceExtensionProperties[] = {
 #endif
 #ifdef VK_USE_PLATFORM_WIN32_KHR
 	{ { VK_KHR_WIN32_SURFACE_EXTENSION_NAME, VK_KHR_WIN32_SURFACE_SPEC_VERSION } },
+#endif
+#ifdef VK_USE_PLATFORM_HAIKU_EXT
+	{ { VK_EXT_HAIKU_SURFACE_EXTENSION_NAME, VK_EXT_HAIKU_SURFACE_SPEC_VERSION } },
 #endif
 };
 
@@ -4015,6 +4022,17 @@ VKAPI_ATTR VkBool32 VKAPI_CALL vkGetPhysicalDeviceWin32PresentationSupportKHR(Vk
 	TRACE("(VkPhysicalDevice physicalDevice = %p, uint32_t queueFamilyIndex = %d)",
 	      physicalDevice, queueFamilyIndex);
 	return VK_TRUE;
+}
+#endif
+
+
+#ifdef VK_USE_PLATFORM_HAIKU_EXT
+VKAPI_ATTR VkResult VKAPI_CALL vkCreateHaikuSurfaceEXT(VkInstance instance, const VkHaikuSurfaceCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface)
+{
+	TRACE("(VkInstance instance = %p, VkHaikuSurfaceCreateInfoEXT* pCreateInfo = %p, VkAllocationCallbacks* pAllocator = %p, VkSurface* pSurface = %p)",
+	      instance, pCreateInfo, pAllocator, pSurface);
+
+	return vk::HaikuSurface::Create(pAllocator, pCreateInfo, pSurface);
 }
 #endif
 

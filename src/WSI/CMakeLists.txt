@@ -73,6 +73,11 @@ elseif(APPLE)
         MetalSurface.mm
         MetalSurface.hpp
     )
+elseif(HAIKU)
+    list(APPEND WSI_SRC_FILES
+        HaikuSurface.cpp 
+        HaikuSurface.hpp
+    )
 endif()
 
 add_library(vk_wsi EXCLUDE_FROM_ALL

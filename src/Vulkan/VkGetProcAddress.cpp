@@ -152,6 +152,10 @@ static const std::unordered_map<std::string, PFN_vkVoidFunction> instanceFunctio
 	MAKE_VULKAN_INSTANCE_ENTRY(vkGetPhysicalDeviceWin32PresentationSupportKHR),
 #endif
 	MAKE_VULKAN_INSTANCE_ENTRY(vkCreateHeadlessSurfaceEXT),
+#ifdef VK_USE_PLATFORM_HAIKU_EXT
+	// VK_EXT_haiku_surface
+	MAKE_VULKAN_INSTANCE_ENTRY(vkCreateHaikuSurfaceEXT),
+#endif
 };
 #undef MAKE_VULKAN_INSTANCE_ENTRY
 

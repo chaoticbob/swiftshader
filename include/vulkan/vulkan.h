@@ -89,4 +89,9 @@
 #include "vulkan_beta.h"
 #endif
 
+#ifdef VK_USE_PLATFORM_HAIKU_EXT
+#include <View.h>
+#include "vulkan_haiku.h"
+#endif
+
 #endif // VULKAN_H_
