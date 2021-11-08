@@ -111,6 +111,8 @@ VkResult HaikuSurface::present(PresentImage *image)
 
 	uint32 bytesPerRow = bufferBitmap->BytesPerRow();
 
+    image->getImage()->copyTo(reinterpret_cast<uint8_t *>(framebuffer), bytesPerRow);
+
    	char *s_ptr = framebuffer;
    	char *d_ptr = (char*)bufferBitmap->Bits();
 
